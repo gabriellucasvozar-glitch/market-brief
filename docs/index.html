@@ -1,0 +1,95 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Market Brief</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Brief">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--bg:#0b0e14;--card:#131824;--line:#1f2637;--tx:#e6e9f2;--mut:#8b93a7;--acc:#4fd1c5;--up:#34d399;--dn:#f87171}
+*{box-sizing:border-box}body{font:14px/1.45 -apple-system,"SF Pro Text",Helvetica,sans-serif;margin:0;background:var(--bg);color:var(--tx)}
+body.dopen{overflow:hidden}
+header{position:sticky;top:0;z-index:5;background:rgba(11,14,20,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:12px 24px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+h1{font-size:17px;margin:0 auto 0 0}h1 span{color:var(--acc)}
+.seg{display:flex;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:2px}
+button{border:0;background:none;color:var(--mut);padding:7px 14px;border-radius:6px;cursor:pointer;font:inherit}
+button.on{background:var(--acc);color:#04211e;font-weight:600}
+#dl{background:var(--card);border:1px solid var(--line);color:var(--tx);padding:7px 14px;border-radius:6px;text-decoration:none}#refresh{background:var(--card);border:1px solid var(--line);color:var(--tx)}
+main{display:grid;grid-template-columns:minmax(320px,1fr) 1.3fr;gap:18px;padding:18px 24px;max-width:1400px;margin:auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px;height:calc(100vh - 100px);overflow:auto}
+#detail{padding:22px}
+.row{padding:11px 12px;border-radius:8px;cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.row:hover,.row.sel{background:#1a2133}.row.sel{outline:1px solid var(--acc)}
+.nw{display:block}.meta{font-size:12px;color:var(--mut);margin-top:3px}
+.badge{background:#1d2a2f;color:var(--acc);border-radius:6px;padding:1px 7px;font-size:11px}
+.chip{font-variant-numeric:tabular-nums;padding:2px 8px;border-radius:6px;font-size:12px;font-weight:600;display:inline-block;text-align:right}
+.up{color:var(--up);background:rgba(52,211,153,.1)}.dn{color:var(--dn);background:rgba(248,113,113,.1)}
+details{margin-bottom:6px}summary{cursor:pointer;padding:10px 12px;font-weight:600;color:var(--acc);font-size:12px;text-transform:uppercase;letter-spacing:.4px;list-style:none}
+summary::before{content:"▸ "}details[open]>summary::before{content:"▾ "}
+.grid{display:flex;gap:6px;align-items:center}
+h2{margin:0 0 6px;font-size:20px;line-height:1.3}
+a.btn{display:inline-block;margin:14px 0;background:var(--acc);color:#04211e;font-weight:600;padding:10px 18px;border-radius:8px;text-decoration:none}
+a{color:var(--acc)}.back{display:inline-block;font-weight:600;padding:6px 0;text-decoration:none}
+.st{font-size:12px;color:var(--mut);padding:8px 12px}.mobonly{display:none}
+.ro{font-size:13px;color:var(--mut);margin-top:16px;min-height:38px}.ro b{color:var(--tx)}
+.ch{height:250px;position:relative}canvas{touch-action:pan-y}
+@media(max-width:900px){
+ header{padding:10px 12px;gap:6px}h1{width:100%;margin:0}
+ main{grid-template-columns:1fr;padding:10px;gap:10px}
+ .card{height:auto;overflow:visible}.mobonly{display:block;background:#0f1420;border-radius:10px;margin-bottom:8px}
+ .mobonly h2,.mobonly .back{display:none}
+ #detail{display:none;position:fixed;inset:0;z-index:20;border-radius:0;height:auto;overflow:auto;padding:16px;padding-top:max(16px,env(safe-area-inset-top))}
+ body.dopen #detail{display:block}.row{padding:13px 8px}.ch{height:230px}
+}
+</style></head><body>
+<header><h1>Market <span>Brief</span></h1>
+<div class="seg"><button id="v-news" class="on">News</button><button id="v-markets">Markets</button></div>
+<div class="seg"><button id="r-day" class="on">Daily</button><button id="r-week">Weekly</button></div>
+<button id="refresh">Refresh</button><a id="dl" href="snapshot.pdf" download>Offline copy</a></header>
+<main><div class="card" id="list">Loading…</div><div class="card" id="detail"></div></main>
+<script>
+const J=async f=>(await fetch('data/'+f+'.json',{cache:'no-cache'})).json();let HIST=null;
+const hist=async syms=>{HIST=HIST||await J('history');const o={};syms.forEach(s=>{if(HIST[s])o[s]=HIST[s]});return o};
+let S={view:'news',range:'day'},charts=[],NEWS=[];const $=id=>document.getElementById(id),mob=()=>innerWidth<=900;
+function tog(a,b,k,v){S[k]=v;[a,b].forEach(x=>$(x).classList.remove('on'));$(k[0]+'-'+v).classList.add('on');load()}
+$('v-news').onclick=()=>tog('v-news','v-markets','view','news');$('v-markets').onclick=()=>tog('v-news','v-markets','view','markets');
+$('r-day').onclick=()=>tog('r-day','r-week','range','day');$('r-week').onclick=()=>tog('r-day','r-week','range','week');
+$('refresh').onclick=async()=>{$('refresh').textContent='Refreshing…';try{HIST=null;await load();$('refresh').textContent='Refresh'}catch(e){$('refresh').textContent='Offline';setTimeout(()=>$('refresh').textContent='Refresh',2500)}};
+const chip=v=>v==null?'<span class="chip">–</span>':`<span class="chip ${v>=0?'up':'dn'}">${v>=0?'+':''}${v}%</span>`;
+const OV='<details class="mobonly" open><summary>Overview</summary><div id="ovm" style="padding:0 12px 8px"></div></details>';
+async function load(){
+ const d=await J(S.view+'-'+S.range);
+ if(!d.length){const st=await J('status');
+  $('list').innerHTML=OV+'<div class="st">No data yet. The next scheduled update will fill this in.<br><br><b>Source status</b><br>'+Object.entries(st).map(([k,v])=>`${k}: ${v}`).join('<br>')+'</div>';showOverview();return}
+ if(S.view=='news'){NEWS=d;const G={};d.forEach((a,i)=>(G[a.sector]=G[a.sector]||[]).push([a,i]));
+  $('list').innerHTML=OV+`<div class="st">${d.length} major stories by sector, most relevant first.</div>`+Object.entries(G).map(([g,rs])=>`<details open><summary>${g} (${rs.length})</summary>`+rs.map(([a,i])=>`<div class="row" onclick="showNews(${i},this)"><div><b class="nw">${a.title}</b><div class="meta">${a.source} · ${new Date(a.published).toLocaleString('es-ES',{dateStyle:'short',timeStyle:'short'})} · <span class="badge">${a.score}</span></div></div></div>`).join('')+'</details>').join('')}
+ else{const G={};d.forEach(r=>(G[r.group]=G[r.group]||[]).push(r));
+  $('list').innerHTML=OV+Object.entries(G).map(([g,rs],i)=>`<details ${i<3?'open':''}><summary>${g} (${rs.length})</summary>`+rs.map(r=>`<div class="row" onclick="showMkt('${r.symbol}',this)"><div><b>${r.name}</b><div class="meta">${r.last}</div></div><div class="grid">${chip(r.day)}${chip(r.week)}</div></div>`).join('')+'</details>').join('')}
+ showOverview()
+}
+function sel(el){document.querySelectorAll('.row.sel').forEach(x=>x.classList.remove('sel'));el.classList.add('sel')}
+function openD(){if(mob()){document.body.classList.add('dopen');$('detail').scrollTop=0}}
+function back(){if(document.body.classList.contains('dopen'))document.body.classList.remove('dopen');else showOverview()}
+const cross={id:'cross',afterDatasetsDraw(ch){const t=ch.tooltip;if(t&&t.opacity&&t.dataPoints&&t.dataPoints.length){const x=t.dataPoints[0].element.x,a=ch.chartArea,c=ch.ctx;c.save();c.strokeStyle='rgba(230,233,242,.5)';c.setLineDash([4,4]);c.beginPath();c.moveTo(x,a.top);c.lineTo(x,a.bottom);c.stroke();c.restore()}}};
+function draw(map,box){charts.forEach(c=>c.destroy());charts=[];
+ Object.values(map).forEach(m=>{const info=document.createElement('div');info.className='ro';box.appendChild(info);
+  const h=document.createElement('div');h.className='ch';const cv=document.createElement('canvas');h.appendChild(cv);box.appendChild(h);
+  const c0=m.closes[0],p2=v=>+v.toFixed(2),show=i=>{const p=m.closes[i],q=i?m.closes[i-1]:p;
+   info.innerHTML=`<b>${m.name}</b> · ${m.dates[i]}<br><b style="font-size:17px">${p}</b> &nbsp; since start ${chip(p2((p/c0-1)*100))} &nbsp; day ${chip(p2((p/q-1)*100))}`};
+  show(m.closes.length-1);
+  charts.push(new Chart(cv,{type:'line',plugins:[cross],data:{labels:m.dates,datasets:[{data:m.closes,borderColor:'#4fd1c5',backgroundColor:'rgba(79,209,197,.10)',fill:true,pointRadius:0,pointHoverRadius:5,pointHoverBackgroundColor:'#4fd1c5',borderWidth:2,tension:.2}]},
+   options:{maintainAspectRatio:false,interaction:{mode:'index',intersect:false},onHover:(e,a)=>{if(a.length)show(a[0].index)},
+    plugins:{legend:{display:false},tooltip:{displayColors:false,callbacks:{label:x=>`Price: ${x.parsed.y}`,afterLabel:x=>`Since start: ${p2((x.parsed.y/c0-1)*100)}%`}}},
+    scales:{x:{ticks:{maxTicksLimit:5,color:'#8b93a7'},grid:{color:'rgba(255,255,255,.05)'}},y:{ticks:{color:'#8b93a7'},grid:{color:'rgba(255,255,255,.05)'}}}}}))})}
+async function showNews(i,el){sel(el);const a=NEWS[i];
+ $('detail').innerHTML=`<a href="#" class="back" onclick="back();return false">← Back</a><h2>${a.title}</h2><div class="meta">${a.source} · ${new Date(a.published).toLocaleString('es-ES')} · ${a.sector}</div><p>${a.summary||'No summary in feed.'}</p><a class="btn" href="${a.link}" target="_blank">Read full article ↗</a><div id="ch"></div>`;openD();
+ if(a.tickers.length)draw(await hist(a.tickers),$('ch'))}
+async function showMkt(s,el){sel(el);const m=await hist([s]);
+ const rel=(await J('news-all')).filter(a=>a.tickers.includes(s)).slice(0,6);
+ $('detail').innerHTML=`<a href="#" class="back" onclick="back();return false">← Back</a><h2>${m[s].name}</h2><div id="ch"></div><h3>Related headlines</h3>`+
+  (rel.map(a=>`<div class="row"><div><a href="${a.link}" target="_blank">${a.title}</a><div class="meta">${a.source}</div></div></div>`).join('')||'<div class="meta">None this week.</div>');
+ openD();draw(m,$('ch'))}
+async function showOverview(){charts.forEach(c=>c.destroy());charts=[];
+ const o=await J('overview-'+S.range),mt=await J('meta');
+ const h=`<h2>${S.range=='day'?'Daily':'Weekly'} overview</h2><div class="meta">${o.words} words · ${o.articles} articles scanned · updated ${new Date(mt.updated).toLocaleString('es-ES',{dateStyle:'short',timeStyle:'short'})}</div>`+o.paragraphs.map(p=>`<p>${p}</p>`).join('');
+ if($('ovm'))$('ovm').innerHTML=h;if(!document.body.classList.contains('dopen'))$('detail').innerHTML=h}
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+load();
+</script></body></html>

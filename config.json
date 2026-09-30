@@ -1,0 +1,698 @@
+{
+ "refresh_hour": 7,
+ "refresh_minute": 0,
+ "timezone": "Europe/Madrid",
+ "feeds": [
+  {
+   "name": "FT Home",
+   "url": "https://www.ft.com/rss/home",
+   "w": 3
+  },
+  {
+   "name": "FT Companies",
+   "url": "https://www.ft.com/companies?format=rss",
+   "w": 3
+  },
+  {
+   "name": "FT Markets",
+   "url": "https://www.ft.com/markets?format=rss",
+   "w": 3
+  },
+  {
+   "name": "FT World",
+   "url": "https://www.ft.com/world?format=rss",
+   "w": 3
+  },
+  {
+   "name": "BBC Business",
+   "url": "http://feeds.bbci.co.uk/news/business/rss.xml",
+   "w": 2
+  },
+  {
+   "name": "CNBC",
+   "url": "https://www.cnbc.com/id/10001147/device/rss/rss.html",
+   "w": 2
+  },
+  {
+   "name": "Federal Reserve",
+   "url": "https://www.federalreserve.gov/feeds/press_all.xml",
+   "w": 3,
+   "sector": "Central Banks & Macro"
+  },
+  {
+   "name": "ECB",
+   "url": "https://www.ecb.europa.eu/rss/press.html",
+   "w": 3,
+   "sector": "Central Banks & Macro"
+  },
+  {
+   "name": "Bank of England",
+   "url": "https://www.bankofengland.co.uk/rss/news",
+   "w": 3,
+   "sector": "Central Banks & Macro"
+  }
+ ],
+ "keywords": {
+  "ipo": 4,
+  "initial public offering": 4,
+  "merger": 4,
+  "acquisition": 4,
+  "takeover": 4,
+  "buyout": 4,
+  "private equity": 4,
+  "venture capital": 4,
+  "venture": 2,
+  "business angel": 4,
+  "angel investor": 4,
+  "funding round": 3,
+  "series a": 2,
+  "series b": 2,
+  "asset manager": 3,
+  "asset management": 3,
+  "blackrock": 2,
+  "vanguard": 2,
+  "investment bank": 3,
+  "goldman": 2,
+  "jpmorgan": 2,
+  "morgan stanley": 2,
+  "ubs": 2,
+  "deutsche bank": 2,
+  "rate decision": 5,
+  "interest rate": 4,
+  "rate cut": 4,
+  "rate rise": 4,
+  "central bank": 4,
+  "inflation": 3,
+  "recession": 3,
+  "tariff": 3,
+  "sanctions": 3,
+  "war": 3,
+  "opec": 4,
+  "oil": 2,
+  "gold": 2,
+  "billion": 3,
+  "record": 2,
+  "biggest": 2,
+  "largest": 2,
+  "bankruptcy": 3,
+  "default": 3,
+  "layoffs": 1,
+  "stake": 1,
+  "deal": 2
+ },
+ "ticker_map": {
+  "oil": [
+   "BZ=F",
+   "CL=F"
+  ],
+  "opec": [
+   "BZ=F"
+  ],
+  "gold": [
+   "GC=F"
+  ],
+  "gas": [
+   "NG=F"
+  ],
+  "copper": [
+   "HG=F"
+  ],
+  "wheat": [
+   "ZW=F"
+  ],
+  "fed": [
+   "^TNX",
+   "^GSPC"
+  ],
+  "federal reserve": [
+   "^TNX",
+   "^GSPC"
+  ],
+  "ecb": [
+   "EURUSD=X",
+   "^STOXX50E"
+  ],
+  "bank of england": [
+   "GBPUSD=X",
+   "^FTSE"
+  ],
+  "bitcoin": [
+   "BTC-USD"
+  ],
+  "yen": [
+   "JPY=X"
+  ],
+  "china": [
+   "^HSI",
+   "CNY=X"
+  ],
+  "nikkei": [
+   "^N225"
+  ],
+  "dollar": [
+   "EURUSD=X"
+  ],
+  "bank": [
+   "XLF"
+  ],
+  "ipo": [
+   "^IXIC"
+  ],
+  "tariff": [
+   "^GSPC"
+  ]
+ },
+ "watchlist": [
+  {
+   "s": "^GSPC",
+   "n": "S&P 500",
+   "g": "Equities",
+   "on": true
+  },
+  {
+   "s": "^IXIC",
+   "n": "Nasdaq",
+   "g": "Equities",
+   "on": true
+  },
+  {
+   "s": "^DJI",
+   "n": "Dow Jones",
+   "g": "Equities",
+   "on": true
+  },
+  {
+   "s": "^FTSE",
+   "n": "FTSE 100",
+   "g": "Equities",
+   "on": true
+  },
+  {
+   "s": "^GDAXI",
+   "n": "DAX",
+   "g": "Equities",
+   "on": true
+  },
+  {
+   "s": "^N225",
+   "n": "Nikkei 225",
+   "g": "Equities",
+   "on": true
+  },
+  {
+   "s": "^HSI",
+   "n": "Hang Seng",
+   "g": "Equities",
+   "on": true
+  },
+  {
+   "s": "^STOXX50E",
+   "n": "Euro Stoxx 50",
+   "g": "Equities",
+   "on": true
+  },
+  {
+   "s": "EURUSD=X",
+   "n": "EUR/USD",
+   "g": "Currencies",
+   "on": true
+  },
+  {
+   "s": "GBPUSD=X",
+   "n": "GBP/USD",
+   "g": "Currencies",
+   "on": true
+  },
+  {
+   "s": "JPY=X",
+   "n": "USD/JPY",
+   "g": "Currencies",
+   "on": true
+  },
+  {
+   "s": "CNY=X",
+   "n": "USD/CNY",
+   "g": "Currencies",
+   "on": true
+  },
+  {
+   "s": "^FVX",
+   "n": "US 5Y yield",
+   "g": "Bonds",
+   "on": true
+  },
+  {
+   "s": "^TNX",
+   "n": "US 10Y yield",
+   "g": "Bonds",
+   "on": true
+  },
+  {
+   "s": "^TYX",
+   "n": "US 30Y yield",
+   "g": "Bonds",
+   "on": true
+  },
+  {
+   "s": "XLF",
+   "n": "US Financials (XLF)",
+   "g": "Financial sector",
+   "on": true
+  },
+  {
+   "s": "KBE",
+   "n": "US Banks (KBE)",
+   "g": "Financial sector",
+   "on": true
+  },
+  {
+   "s": "EUFN",
+   "n": "Europe Financials (EUFN)",
+   "g": "Financial sector",
+   "on": true
+  },
+  {
+   "s": "BZ=F",
+   "n": "Brent crude",
+   "g": "Energy",
+   "on": true
+  },
+  {
+   "s": "CL=F",
+   "n": "WTI crude",
+   "g": "Energy",
+   "on": true
+  },
+  {
+   "s": "NG=F",
+   "n": "Natural gas",
+   "g": "Energy",
+   "on": true
+  },
+  {
+   "s": "GC=F",
+   "n": "Gold",
+   "g": "Metals",
+   "on": true
+  },
+  {
+   "s": "SI=F",
+   "n": "Silver",
+   "g": "Metals",
+   "on": true
+  },
+  {
+   "s": "HG=F",
+   "n": "Copper",
+   "g": "Metals",
+   "on": true
+  },
+  {
+   "s": "ZW=F",
+   "n": "Wheat",
+   "g": "Agriculture",
+   "on": true
+  },
+  {
+   "s": "ZC=F",
+   "n": "Corn",
+   "g": "Agriculture",
+   "on": true
+  },
+  {
+   "s": "ZS=F",
+   "n": "Soybeans",
+   "g": "Agriculture",
+   "on": true
+  },
+  {
+   "s": "KC=F",
+   "n": "Coffee",
+   "g": "Agriculture",
+   "on": true
+  },
+  {
+   "s": "BTC-USD",
+   "n": "Bitcoin",
+   "g": "Crypto",
+   "on": true
+  },
+  {
+   "s": "ETH-USD",
+   "n": "Ethereum",
+   "g": "Crypto",
+   "on": true
+  },
+  {
+   "s": "GS",
+   "n": "Goldman Sachs",
+   "g": "Investment Banks",
+   "on": true
+  },
+  {
+   "s": "MS",
+   "n": "Morgan Stanley",
+   "g": "Investment Banks",
+   "on": true
+  },
+  {
+   "s": "JPM",
+   "n": "JPMorgan",
+   "g": "Investment Banks",
+   "on": true
+  },
+  {
+   "s": "BAC",
+   "n": "Bank of America",
+   "g": "Investment Banks",
+   "on": true
+  },
+  {
+   "s": "C",
+   "n": "Citigroup",
+   "g": "Investment Banks",
+   "on": true
+  },
+  {
+   "s": "UBS",
+   "n": "UBS",
+   "g": "Investment Banks",
+   "on": true
+  },
+  {
+   "s": "DB",
+   "n": "Deutsche Bank",
+   "g": "Investment Banks",
+   "on": true
+  },
+  {
+   "s": "BCS",
+   "n": "Barclays",
+   "g": "Investment Banks",
+   "on": true
+  },
+  {
+   "s": "HSBC",
+   "n": "HSBC",
+   "g": "Investment Banks",
+   "on": true
+  },
+  {
+   "s": "SAN",
+   "n": "Santander",
+   "g": "Investment Banks",
+   "on": true
+  },
+  {
+   "s": "BBVA",
+   "n": "BBVA",
+   "g": "Investment Banks",
+   "on": true
+  },
+  {
+   "s": "LAZ",
+   "n": "Lazard",
+   "g": "Investment Banks",
+   "on": true
+  },
+  {
+   "s": "EVR",
+   "n": "Evercore",
+   "g": "Investment Banks",
+   "on": true
+  },
+  {
+   "s": "JEF",
+   "n": "Jefferies",
+   "g": "Investment Banks",
+   "on": true
+  },
+  {
+   "s": "BLK",
+   "n": "BlackRock",
+   "g": "Asset Managers & Private Equity",
+   "on": true
+  },
+  {
+   "s": "BX",
+   "n": "Blackstone",
+   "g": "Asset Managers & Private Equity",
+   "on": true
+  },
+  {
+   "s": "KKR",
+   "n": "KKR",
+   "g": "Asset Managers & Private Equity",
+   "on": true
+  },
+  {
+   "s": "APO",
+   "n": "Apollo",
+   "g": "Asset Managers & Private Equity",
+   "on": true
+  },
+  {
+   "s": "CG",
+   "n": "Carlyle",
+   "g": "Asset Managers & Private Equity",
+   "on": true
+  },
+  {
+   "s": "ARES",
+   "n": "Ares Management",
+   "g": "Asset Managers & Private Equity",
+   "on": true
+  },
+  {
+   "s": "TROW",
+   "n": "T. Rowe Price",
+   "g": "Asset Managers & Private Equity",
+   "on": true
+  },
+  {
+   "s": "BEN",
+   "n": "Franklin Templeton",
+   "g": "Asset Managers & Private Equity",
+   "on": true
+  },
+  {
+   "s": "IVZ",
+   "n": "Invesco",
+   "g": "Asset Managers & Private Equity",
+   "on": true
+  },
+  {
+   "s": "III.L",
+   "n": "3i Group",
+   "g": "Asset Managers & Private Equity",
+   "on": true
+  },
+  {
+   "s": "SDR.L",
+   "n": "Schroders",
+   "g": "Asset Managers & Private Equity",
+   "on": true
+  },
+  {
+   "s": "AMUN.PA",
+   "n": "Amundi",
+   "g": "Asset Managers & Private Equity",
+   "on": true
+  },
+  {
+   "s": "EQT.ST",
+   "n": "EQT",
+   "g": "Asset Managers & Private Equity",
+   "on": true
+  },
+  {
+   "s": "ICE",
+   "n": "Intercontinental Exchange",
+   "g": "Exchanges & Payments",
+   "on": true
+  },
+  {
+   "s": "CME",
+   "n": "CME Group",
+   "g": "Exchanges & Payments",
+   "on": true
+  },
+  {
+   "s": "NDAQ",
+   "n": "Nasdaq Inc.",
+   "g": "Exchanges & Payments",
+   "on": true
+  },
+  {
+   "s": "LSEG.L",
+   "n": "LSEG",
+   "g": "Exchanges & Payments",
+   "on": true
+  },
+  {
+   "s": "DB1.DE",
+   "n": "Deutsche Boerse",
+   "g": "Exchanges & Payments",
+   "on": true
+  },
+  {
+   "s": "V",
+   "n": "Visa",
+   "g": "Exchanges & Payments",
+   "on": true
+  },
+  {
+   "s": "MA",
+   "n": "Mastercard",
+   "g": "Exchanges & Payments",
+   "on": true
+  },
+  {
+   "s": "XOM",
+   "n": "ExxonMobil",
+   "g": "Oil & Gas Majors",
+   "on": true
+  },
+  {
+   "s": "CVX",
+   "n": "Chevron",
+   "g": "Oil & Gas Majors",
+   "on": true
+  },
+  {
+   "s": "SHEL",
+   "n": "Shell",
+   "g": "Oil & Gas Majors",
+   "on": true
+  },
+  {
+   "s": "BP",
+   "n": "BP",
+   "g": "Oil & Gas Majors",
+   "on": true
+  },
+  {
+   "s": "TTE",
+   "n": "TotalEnergies",
+   "g": "Oil & Gas Majors",
+   "on": true
+  },
+  {
+   "s": "COP",
+   "n": "ConocoPhillips",
+   "g": "Oil & Gas Majors",
+   "on": true
+  },
+  {
+   "s": "EQNR",
+   "n": "Equinor",
+   "g": "Oil & Gas Majors",
+   "on": true
+  },
+  {
+   "s": "OXY",
+   "n": "Occidental",
+   "g": "Oil & Gas Majors",
+   "on": true
+  },
+  {
+   "s": "USO",
+   "n": "US Oil Fund (ETF)",
+   "g": "Oil & Gas Majors",
+   "on": true
+  },
+  {
+   "s": "BHP",
+   "n": "BHP",
+   "g": "Mining & Metals",
+   "on": true
+  },
+  {
+   "s": "RIO",
+   "n": "Rio Tinto",
+   "g": "Mining & Metals",
+   "on": true
+  },
+  {
+   "s": "GLEN.L",
+   "n": "Glencore",
+   "g": "Mining & Metals",
+   "on": true
+  },
+  {
+   "s": "FCX",
+   "n": "Freeport-McMoRan",
+   "g": "Mining & Metals",
+   "on": true
+  },
+  {
+   "s": "NEM",
+   "n": "Newmont",
+   "g": "Mining & Metals",
+   "on": true
+  },
+  {
+   "s": "VALE",
+   "n": "Vale",
+   "g": "Mining & Metals",
+   "on": true
+  },
+  {
+   "s": "GDX",
+   "n": "Gold Miners (ETF)",
+   "g": "Mining & Metals",
+   "on": true
+  },
+  {
+   "s": "NVDA",
+   "n": "Nvidia",
+   "g": "Big Tech & IPO Barometer",
+   "on": true
+  },
+  {
+   "s": "MSFT",
+   "n": "Microsoft",
+   "g": "Big Tech & IPO Barometer",
+   "on": true
+  },
+  {
+   "s": "AAPL",
+   "n": "Apple",
+   "g": "Big Tech & IPO Barometer",
+   "on": true
+  },
+  {
+   "s": "AMZN",
+   "n": "Amazon",
+   "g": "Big Tech & IPO Barometer",
+   "on": true
+  },
+  {
+   "s": "GOOGL",
+   "n": "Alphabet",
+   "g": "Big Tech & IPO Barometer",
+   "on": true
+  },
+  {
+   "s": "META",
+   "n": "Meta",
+   "g": "Big Tech & IPO Barometer",
+   "on": true
+  },
+  {
+   "s": "TSLA",
+   "n": "Tesla",
+   "g": "Big Tech & IPO Barometer",
+   "on": true
+  },
+  {
+   "s": "IPO",
+   "n": "Renaissance IPO (ETF)",
+   "g": "Big Tech & IPO Barometer",
+   "on": true
+  }
+ ],
+ "min_score": 11,
+ "per_sector_day": 4,
+ "per_sector_week": 6
+}
